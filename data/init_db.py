@@ -3,7 +3,7 @@ from data_manager import ensure_var, get_connection_data, establish_connection
 
 def init_db():
     # We need to connect to postgres db to be able to drop our db
-    connection_data = get_connection_data('postgres')
+    connection_data = get_connection_data('admin')
     db_to_init = ensure_var('MY_PSQL_DBNAME')
     print(f'Running init with connection data: {connection_data} and initializing databae: {db_to_init}')
 
@@ -21,7 +21,7 @@ def init_db():
 
 
 def create_schema():
-    creation_script_file = 'data/db_schema/01_create_schema.sql'
+    creation_script_file = 'db_schema/01_create_schema.sql'
     with open(creation_script_file) as schema_script:
         with establish_connection() as conn, \
                 conn.cursor() as cursor:

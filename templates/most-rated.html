@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shows</title>
+    <!-- Import Montserrat font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <!-- Normalize.css fixes lot of differences between browsers default styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"/>
+
+    <!-- project wide styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/site.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/background.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/most-rated.css') }}">
+
+    <!-- page specific styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+</head>
+<body>
+<header class="clearfix">
+    <img id="header-logo" src="{{ url_for('static', filename='assets/codecool-logo.png') }}" alt="Codecool Logo">
+    <span id="header-title" class="title">Codecool Series DB</span>
+    <h1>Shows</h1>
+    <div id="header-auth">
+        <button type="button" id="bt-register">Register</button>
+        <button type="button" id="bt-login">Login</button>
+    </div>
+</header>
+<table style="width:100%">
+    <tr>
+        <th>Title</th>
+        <th>Release Year</th>
+        <th>Average runtime length</th>
+        <th>Rating</th>
+        <th>Genres</th>
+        <th>Homepage</th>
+        <th>Trailer</th>
+    </tr>
+    {% for show in shows %}
+        <tr>
+            <td><a href="/show/{{ show.id }}" >{{ show.title }}</a></td>
+            <td>{{ show.year }}</td>
+            <td>{{ show.runtime }}</td>
+            <td>{{ (show.rating)|round(1) }}</td>
+            <td>
+                {% for genre in show.genre %}
+                    {% if loop.index != loop.length %}
+                        {{ genre + ", " }}
+                    {% else %}
+                        {{ genre }}
+                    {% endif %}
+                {% endfor %}
+            </td>
+            {% if show.homepage != None %}
+                <td><a href="{{ show.homepage }}">Link</a></td>
+            {% else %}
+                <td>No URL</td>
+            {% endif %}
+            {% if show.trailer != None %}
+                <td><a href="{{ show.trailer }}">Link</a></td>
+            {% else %}
+                <td>No URL</td>
+            {% endif %}
+        </tr>
+
+    {% endfor %}
+</table>
+
+</body>
+</html>

@@ -32,26 +32,26 @@ def main():
     # if you want to re-enable it by adding documentation about trakt to the project
     # README then use should_use_trakt() instead of False
     use_trakt = False
-    init_db.init_db()
+    # init_db.init_db()
     init_db.create_schema()
     if use_trakt:
         insert_genres()
         insert_shows(limit=20, max_show_count=100)
         print('Data downloaded and inserted successfully')
     else:
-        execute_sql_file("data/dump_1000_shows/codecool_public_genres.sql")
+        execute_sql_file("dump_1000_shows/codecool_public_genres.sql")
         print("Genres inserted")
-        execute_sql_file("data/dump_1000_shows/codecool_public_shows.sql")
+        execute_sql_file("dump_1000_shows/codecool_public_shows.sql")
         print("Shows inserted")
-        execute_sql_file("data/dump_1000_shows/codecool_public_show_genres.sql")
+        execute_sql_file("dump_1000_shows/codecool_public_show_genres.sql")
         print("Show genres inserted")
-        execute_sql_file("data/dump_1000_shows/codecool_public_seasons.sql")
+        execute_sql_file("dump_1000_shows/codecool_public_seasons.sql")
         print("Seasons inserted")
-        execute_sql_file("data/dump_1000_shows/codecool_public_episodes.sql")
+        execute_sql_file("dump_1000_shows/codecool_public_episodes.sql")
         print("Episodes inserted")
-        execute_sql_file("data/dump_1000_shows/codecool_public_actors.sql")
+        execute_sql_file("dump_1000_shows/codecool_public_actors.sql")
         print("Actors inserted")
-        execute_sql_file("data/dump_1000_shows/codecool_public_show_characters.sql")
+        execute_sql_file("dump_1000_shows/codecool_public_show_characters.sql")
         print("Show characters inserted")
 
     print("Your database should work now!")
