@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/most-rated.css') }}">
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 
     <!-- page specific styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
@@ -29,7 +30,7 @@
 <body>
 <header class="clearfix">
     <img id="header-logo" src="{{ url_for('static', filename='assets/codecool-logo.png') }}" alt="Codecool Logo">
-    <span id="header-title" class="title">Codecool Series DB</span>
+    <span id="header-title-top" class="title">Codecool Series DB</span>
     <h1>Shows</h1>
     <div id="header-auth">
         <button type="button" id="bt-register">Register</button>
@@ -38,43 +39,75 @@
 </header>
 <table style="width:100%">
     <tr>
-        <th>Title</th>
-        <th>Release Year</th>
-        <th>Average runtime length</th>
-        <th>Rating</th>
-        <th>Genres</th>
-        <th>Homepage</th>
-        <th>Trailer</th>
+        <th id="header-title">Title</th>
+        <th id="header-year">Release Year</th>
+        <th id="header-runtime">Average runtime length</th>
+        <th id="header-rating">Rating</th>
+        <th id="header-genre">Genres</th>
+        <th id="header-homepage">Homepage</th>
+        <th id="header-trailer">Trailer</th>
     </tr>
     {% for show in shows %}
-        <tr>
-            <td><a href="/show/{{ show.id }}" >{{ show.title }}</a></td>
-            <td>{{ show.year }}</td>
-            <td>{{ show.runtime }}</td>
-            <td>{{ (show.rating)|round(1) }}</td>
-            <td>
-                {% for genre in show.genre %}
-                    {% if loop.index != loop.length %}
-                        {{ genre + ", " }}
-                    {% else %}
-                        {{ genre }}
-                    {% endif %}
-                {% endfor %}
-            </td>
-            {% if show.homepage != None %}
-                <td><a href="{{ show.homepage }}">Link</a></td>
+    <tr>
+        <td><a href="/show/{{ show.id }}">{{ show.title }}</a></td>
+        <td>{{ show.year }}</td>
+        <td>{{ show.runtime }}</td>
+        <td>{{ (show.rating)|round(1) }}</td>
+        <td>
+            {% for genre in show.genre %}
+            {% if loop.index != loop.length %}
+            {{ genre + ", " }}
             {% else %}
-                <td>No URL</td>
+            {{ genre }}
             {% endif %}
-            {% if show.trailer != None %}
-                <td><a href="{{ show.trailer }}">Link</a></td>
-            {% else %}
-                <td>No URL</td>
-            {% endif %}
-        </tr>
+            {% endfor %}
+        </td>
+        {% if show.homepage != None %}
+        <td><a href="{{ show.homepage }}">Link</a></td>
+        {% else %}
+        <td>No URL</td>
+        {% endif %}
+        {% if show.trailer != None %}
+        <td><a href="{{ show.trailer }}">Link</a></td>
+        {% else %}
+        <td>No URL</td>
+        {% endif %}
+    </tr>
+
 
     {% endfor %}
-</table>
 
+</table>
+<div class="bottom">
+    <div class="container">
+        <a class="page" href="{{ url_for('most_rated', page=page_nr) }}"><<</a>
+        {% if page_nr < 4 %}
+
+        {% for i in range(1 , 9 ) %}
+        {% if i == page_nr + 1 %}
+        <a class='page' id='{{ i }}' href="{{ url_for('most_rated', page=i) }}"
+           style="color: red">{{ i }}</a>
+        {% else %}
+        <a class='page' id='{{ i }}' href="{{ url_for('most_rated', page=i) }}"
+        >{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+
+        {% else %}
+
+        {% for i in range(page_nr-3 , page_nr + 5 ) %}
+        {% if i == page_nr + 1 %}
+        <a class='page' id='{{ i }}' href="{{ url_for('most_rated', page=i) }}"
+           style="color: red">{{ i }}</a>
+        {% else %}
+        <a class='page' id='{{ i }}' href="{{ url_for('most_rated', page=i) }}"
+        >{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        <a class="page" href="{{ url_for('most_rated', page=page_nr + 2 ) }}">>></a>
+    </div>
+</div>
 </body>
 </html>

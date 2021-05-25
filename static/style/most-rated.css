@@ -3,11 +3,37 @@ body {
 }
 
 h1{
-    position: absolute;
-    left: 48%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 td a {
     color: black;
     font-weight: bold;
 }
+
+.page {
+ color:white;
+font-size: 20px;
+text-align: center;
+text-shadow: 4px 4px 0 rgba(0,0,01, 0.1);
+padding: 10px;
+    background-color: rgba(0,0,0, 0.7);
+}
+
+.bottom {
+display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    align-self: flex-end;
+    margin-top: auto;
+}
+
+
+
