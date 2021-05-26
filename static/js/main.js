@@ -70,7 +70,8 @@ function transformTable(withDataReceived) {
                 if (orderItems[j] === 'rating'){
                     cell.innerText = withDataReceived[index - 1][orderItems[j]].substring(0,3)
                 }else if (orderItems[j] === 'homepage'){
-                    cell.link.href = withDataReceived[index - 1][orderItems[j]]
+                    console.log(cell.attr('href'))
+                    // cell['href'] = withDataReceived[index - 1][orderItems[j]]
                 }else
                 cell.innerText = withDataReceived[index - 1][orderItems[j]]
                 j++
