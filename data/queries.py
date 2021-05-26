@@ -16,7 +16,7 @@ def get_most_rated_shows(offset=0, order_criteria=None, order_direction=None):
         x = f'SELECT * FROM shows ORDER  BY {order_criteria} {order_direction} LIMIT 15 OFFSET {offset}'
         print(x)
         return data_manager.execute_select(
-            f'SELECT * FROM shows ORDER  BY {order_criteria} {order_direction} LIMIT 15 OFFSET {offset}')
+            f'SELECT id,title,extract (year from year), runtime, rating::varchar, trailer, homepage FROM shows ORDER  BY {order_criteria} {order_direction} LIMIT 15 OFFSET {offset}')
 
 
 def get_show_genres(show_id):
