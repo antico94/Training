@@ -58,27 +58,27 @@ function sortBy(headerID) {
 function transformTable(withDataReceived) {
     let rows = document.querySelectorAll('tr')
     let index = 0
-    let j = 0
-    let orderItems = ['title', 'date_part', 'runtime', 'rating', 'genre', 'homepage', 'trailer']
-    console.log(withDataReceived[0])
+
+    console.log(withDataReceived)
+    console.log('This is the first data')
     for (let row of rows) {
-        if (index === 0) {
-            index++
-        } else {
+        if (index !== 0) {
+            let data= withDataReceived[index-1]
             let cells = row.querySelectorAll('td')
-            for (let cell of cells) {
-                if (orderItems[j] === 'rating'){
-                    cell.innerText = withDataReceived[index - 1][orderItems[j]].substring(0,3)
-                }else if (orderItems[j] === 'homepage'){
-                    console.log(cell.attr('href'))
-                    // cell['href'] = withDataReceived[index - 1][orderItems[j]]
-                }else
-                cell.innerText = withDataReceived[index - 1][orderItems[j]]
-                j++
-            }
-            j = 0
-            index+=1
+            cells[0].firstChild.innerText = data['title']
+            cells[0].firstChild.href=`/show/${data['id']}`
+            cells[1].innerText= data['date_part']
+            cells[2].innerText= data['runtime']
+            cells[3].innerText= data['rating'].substring(0,3)
+            let genres=''
+            data['genre'].forEach( element => genres+=element + ', ')
+            genres=genres.substring(0, genres.length-2)
+            cells[4].innerText= genres
+            cells[5].firstChild.href=`${data['homepage']}`
+            cells[6].firstChild.href=`${data['trailer']}`
+
         }
+        index++
     }
 
 }

@@ -3,7 +3,7 @@ from data_manager import ensure_var, get_connection_data, establish_connection
 
 def init_db():
     # We need to connect to postgres db to be able to drop our db
-    connection_data = get_connection_data('admin')
+    connection_data = get_connection_data('gabriel')
     db_to_init = ensure_var('MY_PSQL_DBNAME')
     print(f'Running init with connection data: {connection_data} and initializing databae: {db_to_init}')
 
